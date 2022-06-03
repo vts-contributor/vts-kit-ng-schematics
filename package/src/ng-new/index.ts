@@ -1,13 +1,19 @@
 import { chain, externalSchematic, Rule, schematic, SchematicContext, Tree } from "@angular-devkit/schematics";
 import chalk from "chalk";
+import { omit } from "lodash";
 import * as path from 'path';
 import { NodeDependencyType } from "schematics-utilities";
-import { addDependency } from "../utils/helpers";
+import { addDependency, formatJson } from "../utils/helpers";
 
 export default function (options: any): Rule {
   const packageJson = require('../../package.json')
 
   return (_tree: Tree, _context: SchematicContext) => {
+    const newOptions = {
+      ...omit(options, ['projectName']),
+      createApplication: false
+    }
+
     const projectOptions = {
       inlineStyle: options.inlineStyle,
       inlineTemplate: options.inlineTemplate,
@@ -20,6 +26,7 @@ export default function (options: any): Rule {
       skipInstall: true,
       strict: options.strict,
       minimal: options.minimal,
+      name: options.projectName
     };
 
     let defaultProject = ''
@@ -29,8 +36,7 @@ export default function (options: any): Rule {
         return Tree.empty()
       },
       externalSchematic('@schematics/angular', 'ng-new', {
-        ...options,
-        createApplication: false
+        ...newOptions
       }),
       (tree: Tree) => {
         // Rename to apply project schematic
@@ -39,7 +45,7 @@ export default function (options: any): Rule {
           tree.rename(file, newPath)
         })
       },
-      externalSchematic('vts-kit-ng-schematics', 'project', {
+      externalSchematic(packageJson.name, 'project', {
         ...projectOptions
       }),
       (tree: Tree) => {
@@ -62,16 +68,30 @@ export default function (options: any): Rule {
           throw 'Unable to resolve angular.json'
         
         const angularJson = JSON.parse(angularJsonBuffer.toString())
+        // Update schematic
         defaultProject = angularJson.defaultProject
+        const schematics = angularJson.projects[defaultProject].schematics
+        schematics[`${packageJson.name}:project`] = { style: options.style }
+        schematics[`${packageJson.name}:component`] = { style: options.style }
+        schematics[`${packageJson.name}:feature-group`] = { style: options.style }
+        console.log(options, schematics)
+
+        tree.overwrite('angular.json', JSON.stringify(angularJson))
+        formatJson(tree, 'angular.json')
+
+        // Create feature
         return chain([
           schematic('feature-group', {
             project: defaultProject,
             name: 'layout',
             feature: 'main-layout',
-            routing: false
+            routing: false,
+            generateFeatureModule: false,
+            style: options.style
           }),
           schematic('feature-group', {
-            project: defaultProject
+            project: defaultProject,
+            style: options.style
           }),
         ])
       },

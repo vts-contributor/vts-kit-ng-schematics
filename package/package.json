@@ -3,11 +3,10 @@
   "version": "0.0.3",
   "description": "VTS Kit Angular Schematics",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "gulp compile",
     "watch": "tsc -p tsconfig.json --watch",
     "test": "npm run build && jasmine src/**/*_spec.js",
-    "exec": "schematics",
-    "compile": "gulp compile"
+    "exec": "schematics"
   },
   "keywords": [
     "schematics"

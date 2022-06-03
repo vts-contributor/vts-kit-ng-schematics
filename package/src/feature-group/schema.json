@@ -116,6 +116,11 @@
       "description": "Generate routing for feature.",
       "x-user-analytics": 17,
       "default": true
+    },
+    "generateFeatureModule": {
+      "type": "boolean",
+      "description": "Generate feature module.",
+      "default": true
     }
   },
   "required": ["name", "feature"]

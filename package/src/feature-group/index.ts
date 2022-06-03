@@ -1,5 +1,5 @@
 import { strings } from "@angular-devkit/core";
-import { apply, applyTemplates, chain, move, Rule, schematic, SchematicContext, url } from "@angular-devkit/schematics";
+import { apply, applyTemplates, chain, filter, move, noop, Rule, schematic, SchematicContext, url } from "@angular-devkit/schematics";
 import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { compact, mergeWith } from "lodash";
 import { getScamModulePath, isInsideSharedDir } from "../utils/helpers";
@@ -21,17 +21,19 @@ export default function (options: any): Rule {
       changeDetection: options.changeDetection,
       prefix: options.prefix,
       style: options.style,
-      type: options.type,
       selector: options.selector,
       skipSelector: options.skipSelector,
       path: path.posix.join(options.path, 'feature'),
       name: options.feature,
       shared: false
     };
-
+  
     const rules = compact([
       async (_tree: Tree, context: SchematicContext) => {
         const source = apply(url('./files'), [
+          options.generateFeatureModule 
+            ? noop() 
+            : filter((path) => !path.endsWith(`____MODULE_EXT__.template`)),
           applyTemplates({
             ...strings,
             ...options,
