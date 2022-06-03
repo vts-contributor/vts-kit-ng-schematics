@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "VtsSchematicsAngularService",
+  "title": "VTS Kit Angular Schematic",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Creates a new, generic service definition in the given or default project.",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "shared": {
+      "description": "Specifies whether to create service in shared directory (true / false).",
+      "type": "boolean",
+      "default": false
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path at which to create the service, relative to 'libs' folder (if --shared is setted, path will be relative to 'shared' folder).",
+      "x-prompt": "Where to create new service, relative to 'libs' folder (if --shared is setted, path will be relative to 'shared' folder)? (--path)"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the new service.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the service? (--name)"
+    },
+    "skipTests": {
+      "type": "boolean",
+      "description": "Do not create \"spec.ts\" test files for the new service.",
+      "default": false,
+      "x-user-analytics": 12
+    }
+  },
+  "required": ["path", "name"]
+}

@@ -1,0 +1,27 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+<% if (routing == true) {%>import { Routes, RouterModule } from '@angular/router';<%}%>
+
+<% if (routing == true) {
+%>const routes: Routes = [
+  { 
+    path: '',
+    // component: LayoutComponent,
+    children: [
+      { path: '<%= dasherize(feature) %>', loadChildren: () => import('./feature/<%= dasherize(feature) %>/<%= dasherize(feature) %>.module').then(m => m.<%= classify(feature) %>ComponentModule) },
+      // Wildcard Route
+      // { path: '**', redirectTo: '/' }
+    ]
+  },
+];<%
+}%>
+
+@NgModule({
+  imports: [
+    CommonModule<% if (routing == true) {%>,
+    RouterModule.forChild(routes)<%}%>
+  ],
+  declarations: []
+})
+
+export class <%= classify(name) %>Module { }

@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "VtsSchematicsAngularDirective",
+  "title": "VTS Kit Angular Schematic",
+  "type": "object",
+  "description": "Creates a new, generic directive definition in the given or default project.",
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "shared": {
+      "description": "Specifies whether to create directive in shared directory (true / false).",
+      "type": "boolean",
+      "default": false
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path at which to create the directive, relative to 'libs' folder (if --shared is setted, path will be relative to 'shared' folder).",
+      "x-prompt": "Where to create new directive, relative to 'libs' folder (if --shared is setted, path will be relative to 'shared' folder)? (--path)"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the new directive.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the directive? (--name)"
+    },
+    "prefix": {
+      "type": "string",
+      "description": "A prefix to apply to generated selectors.",
+      "alias": "p",
+      "oneOf": [
+        {
+          "maxLength": 0
+        },
+        {
+          "minLength": 1,
+          "format": "html-selector"
+        }
+      ]
+    },
+    "skipTests": {
+      "type": "boolean",
+      "description": "Do not create \"spec.ts\" test files for the new class.",
+      "default": false,
+      "x-user-analytics": 12
+    },
+    "selector": {
+      "type": "string",
+      "format": "html-selector",
+      "description": "The HTML selector to use for this directive."
+    }
+  },
+  "required": ["path", "name"]
+}

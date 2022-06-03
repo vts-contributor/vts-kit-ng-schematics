@@ -1,0 +1,80 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-new": {
+      "description": "Creates a new project by combining the workspace and application schematics.",
+      "factory": "./ng-new/",
+      "schema": "./ng-new/schema.json"
+    },
+    "project": {
+      "description": "Generates a new basic application definition in the \"projects\" subfolder of the workspace.",
+      "factory": "./project/",
+      "schema": "./project/schema.json"
+    },
+    "module": {
+      "description": "Creates a new, generic NgModule definition in the given or default project.",
+      "factory": "./module/",
+      "schema": "./module/schema.json"
+    },
+    "component": {
+      "description": "Creates a new, generic component definition in the given or default project.",
+      "factory": "./component/",
+      "schema": "./component/schema.json"
+    },
+    "directive": {
+      "description": "Creates a new, generic directive definition in the given or default project.",
+      "factory": "./directive/",
+      "schema": "./directive/schema.json"
+    },
+    "pipe": {
+      "description": "Creates a new, generic pipe definition in the given or default project.",
+      "factory": "./pipe/",
+      "schema": "./pipe/schema.json"
+    },
+    "service": {
+      "description": "Creates a new, generic service definition in the given or default project.",
+      "factory": "./service/",
+      "schema": "./service/schema.json"
+    },
+    "class": {
+      "description": "Creates a new, generic class definition in the given or default project.",
+      "factory": "./class/",
+      "schema": "./class/schema.json"
+    },
+    "interface": {
+      "description": "Creates a new, generic interface definition in the given or default project.",
+      "factory": "./interface/",
+      "schema": "./interface/schema.json"
+    },
+    "enum": {
+      "description": "Creates a new, generic enum definition in the given or default project.",
+      "factory": "./enum/",
+      "schema": "./enum/schema.json"
+    },
+    "validator": {
+      "description": "Creates a new sync or async validator in the given or default project.",
+      "factory": "./validator/",
+      "schema": "./validator/schema.json"
+    },
+    "guard": {
+      "description": "Creates a new, generic route guard definition in the given or default project.",
+      "factory": "./guard/",
+      "schema": "./guard/schema.json"
+    },
+    "interceptor": {
+      "description": "Creates a new, generic route interceptor definition in the given or default project.",
+      "factory": "./interceptor/",
+      "schema": "./interceptor/schema.json"
+    },
+    "resolver": {
+      "description": "Creates a new, generic resolver definition in the given or default project.",
+      "factory": "./resolver/",
+      "schema": "./resolver/schema.json"
+    },
+    "feature-group": {
+      "description": "Creates a new feature group in the given or default project.",
+      "factory": "./feature-group/",
+      "schema": "./feature-group/schema.json"
+    }
+  }
+}
