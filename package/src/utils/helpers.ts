@@ -45,18 +45,18 @@ export function findModule(tree: Tree, modulePath: string, moduleName: string, m
   return [exist, fullPath]
 }
 
-export function formatPackageJson(tree: Tree) {
-  const text = tree.read('/package.json')
+export function formatJson(tree: Tree, path: string) {
+  const text = tree.read(path)
   if (!text)
     return
 
   
   const formatted = JSON.stringify(JSON.parse(text.toString()), null, "\t")
-  tree.overwrite('/package.json', formatted)
+  tree.overwrite(path, formatted)
 }
 
 export function addDependency(tree: Tree, dep: NodeDependency) {
   // Add Dependency
   addPackageJsonDependency(tree, dep)
-  formatPackageJson(tree)
+  formatJson(tree, '/package.json')
 }

@@ -21,6 +21,11 @@
       "factory": "./component/",
       "schema": "./component/schema.json"
     },
+    "feature": {
+      "description": "Creates a new, generic feature-component definition in the given or default project.",
+      "factory": "./feature/",
+      "schema": "./feature/schema.json"
+    },
     "directive": {
       "description": "Creates a new, generic directive definition in the given or default project.",
       "factory": "./directive/",

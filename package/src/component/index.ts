@@ -4,7 +4,6 @@ import { Tree } from "@angular-devkit/schematics/src/tree/interface";
 import { compact, omit } from "lodash";
 import { findModule, getScamModulePath } from "../utils/helpers";
 
-
 export default function (options: any): Rule {
   return async (tree: Tree, _context: SchematicContext) => {
     if (options.shared === undefined) {
@@ -16,7 +15,7 @@ export default function (options: any): Rule {
     const moduleName = options.name
     const opts = omit(options, ['shared'])
 
-    const [moduleExist, _] = findModule(tree, fullModulePath, moduleName)
+    const [moduleExist, moduleFile] = findModule(tree, fullModulePath, moduleName)
 
     const rules = compact([
       moduleExist 
@@ -32,7 +31,7 @@ export default function (options: any): Rule {
         ...opts,
         path: fullModulePath,
         export: true
-      }),
+      })
     ])
 
     return chain(rules);
