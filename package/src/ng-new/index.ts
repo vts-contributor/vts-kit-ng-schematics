@@ -73,8 +73,8 @@ export default function (options: any): Rule {
         const schematics = angularJson.projects[defaultProject].schematics
         schematics[`${packageJson.name}:project`] = { style: options.style }
         schematics[`${packageJson.name}:component`] = { style: options.style }
+        schematics[`${packageJson.name}:feature`] = { style: options.style }
         schematics[`${packageJson.name}:feature-group`] = { style: options.style }
-        console.log(options, schematics)
 
         tree.overwrite('angular.json', JSON.stringify(angularJson))
         formatJson(tree, 'angular.json')

@@ -87,23 +87,24 @@ npm install -g @vts-kit/ng-schematics
 
 ### Schematics
 
-| No  | Name                                      | Description                                                                                  |
-| --- | ----------------------------------------- | -------------------------------------------------------------------------------------------- |
-| 1   | [ng-new](#schematic-ng-new)               | Creates a new project by combining the workspace and application schematics.                 |
-| 2   | [project](#schematic-project)             | Generates a new basic application definition in the \"projects\" subfolder of the workspace. |
-| 3   | [feature-group](#schematic-feature-group) | Creates a new feature group in the given or default project.                                 |
-| 4   | [module](#schematic-module)               | Creates a new, generic NgModule definition in the given or default project.                  |
-| 5   | [component](#schematic-component)         | Creates a new, generic component definition in the given or default project.                 |
-| 6   | [directive](#schematic-directive)         | Creates a new, generic directive definition in the given or default project.                 |
-| 7   | [pipe](#schematic-pipe)                   | Creates a new, generic pipe definition in the given or default project.                      |
-| 8   | [service](#schematic-service)             | Creates a new, generic service definition in the given or default project.                   |
-| 9   | [class](#schematic-class)                 | Creates a new, generic class definition in the given or default project.                     |
-| 10  | [interface](#schematic-interface)         | Creates a new, generic interface definition in the given or default project.                 |
-| 11  | [enum](#schematic-enum)                   | Creates a new, generic enum definition in the given or default project.                      |
-| 12  | [validator](#schematic-validator)         | Creates a new sync or async validator in the given or default project.                       |
-| 13  | [guard](#schematic-guard)                 | Creates a new, generic route guard definition in the given or default project.               |
-| 14  | [interceptor](#schematic-interceptor)     | Creates a new, generic route interceptor definition in the given or default project.         |
-| 15  | [resolver](#schematic-resolver)           | Creates a new, generic resolver definition in the given or default project.                  |
+| No | Name                                      | Description                                                                                                                                                                        |
+|----|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1  | [ng-new](#schematic-ng-new)               | Creates a new project by combining the workspace and application schematics.                                                                                                       |
+| 2  | [project](#schematic-project)             | Generates a new basic application definition in the \"projects\" subfolder of the workspace.                                                                                       |
+| 3  | [feature-group](#schematic-feature-group) | Creates a new feature group in the given or default project.                                                                                                                       |
+| 4  | [module](#schematic-module)               | Creates a new, generic NgModule definition in the given or default project.                                                                                                        |
+| 5  | [component](#schematic-component)         | Creates a new, generic component definition in the given or default project.                                                                                                       |
+| 6  | [feature](#schematic-feature    )         | Creates a new, generic feature definition in the given or default project (feature schematic is the same as the component but has an additional import of RouterModule for child lazy load). |
+| 7  | [directive](#schematic-directive)         | Creates a new, generic directive definition in the given or default project.                                                                                                       |
+| 8  | [pipe](#schematic-pipe)                   | Creates a new, generic pipe definition in the given or default project.                                                                                                            |
+| 9  | [service](#schematic-service)             | Creates a new, generic service definition in the given or default project.                                                                                                         |
+| 10 | [class](#schematic-class)                 | Creates a new, generic class definition in the given or default project.                                                                                                           |
+| 11 | [interface](#schematic-interface)         | Creates a new, generic interface definition in the given or default project.                                                                                                       |
+| 12 | [enum](#schematic-enum)                   | Creates a new, generic enum definition in the given or default project.                                                                                                            |
+| 13 | [validator](#schematic-validator)         | Creates a new sync or async validator in the given or default project.                                                                                                             |
+| 14 | [guard](#schematic-guard)                 | Creates a new, generic route guard definition in the given or default project.                                                                                                     |
+| 15 | [interceptor](#schematic-interceptor)     | Creates a new, generic route interceptor definition in the given or default project.                                                                                               |
+| 16 | [resolver](#schematic-resolver)           | Creates a new, generic resolver definition in the given or default project.                                                                                                        |
 
 ## Quick guide
 
@@ -252,6 +253,35 @@ Creates a new, generic component definition in the given or default project.
 
 ```
 ng g @vts-kit/ng-schematics:component [--options=value]
+```
+
+#### Options
+
+| No  | Name              | Description                                                                                                                                                                     | Type                              | Require | Default                |
+| --- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ------- | ---------------------- |
+| 1   | project           | The name of the project.                                                                                                                                                        | string                            |         |                        |
+| 2   | shared            | Specifies whether to create component in shared directory (libs/shared).                                                                                                        | boolean                           |         | false                  |
+| 3   | path              | The path at which to create the component, relative to 'libs' folder (if --shared is setted, path will be relative to 'shared' folder).                                         | boolean                           | ✔       |                        |
+| 4   | name              | The name of the NgModule.                                                                                                                                                       | string                            | ✔       |                        |
+| 5   | displayBlock      | Specifies if the style will contain `:host { display: block; }`.                                                                                                                | boolean                           |         | false                  |
+| 6   | inlineStyle       | Include styles inline in the component.ts file. Only CSS styles can be included inline. By default, an external styles file is created and referenced in the component.ts file. | boolean                           |         | false                  |
+| 7   | inlineTemplate    | Include template inline in the component.ts file. By default, an external template file is created and referenced in the component.ts file.                                     | boolean                           |         | false                  |
+| 8   | viewEncapsulation | The view encapsulation strategy to use in the new component.                                                                                                                    | ["Emulated", "None", "ShadowDom"] |         |                        |
+| 9   | changeDetection   | The change detection strategy to use in the new component.                                                                                                                      | ["Default", "OnPush"]             |         | Default                |
+| 10  | prefix            | The prefix to apply to generated selectors for the initial project.                                                                                                             | string                            |         | app                    |
+| 11  | style             | The file extension or preprocessor to use for style files.                                                                                                                      | ["css", "scss", "sass", "less"]   |         | Same as initial choice |
+| 12  | skipTests         | Do not generate \"spec.ts\" test files.                                                                                                                                         | boolean                           |         | false                  |
+| 13  | selector          | The HTML selector to use for this component.                                                                                                                                    | string                            |         |                        |
+| 14  | skipSelector      | Specifies if the component should have a selector or not.                                                                                                                       | boolean                           |         | false                  |
+
+## Schematic: feature
+
+Creates a new, generic feature definition in the given or default project (feature schematic is the same as the component but has an additional import of RouterModule for child lazy load).
+
+#### Command
+
+```
+ng g @vts-kit/ng-schematics:feature [--options=value]
 ```
 
 #### Options
